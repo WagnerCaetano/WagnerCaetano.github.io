@@ -4,6 +4,10 @@ async function sendData() {
   if (nome && nome.length > 0 && sobrenome && sobrenome.length > 0) {
     response = null;
 
-    window.localStorage.getItem("dados");
+    dados = JSON.parse(window.localStorage.getItem("dados"));
+    lista = dados && dados.values ? dados.values : [];
+    lista.push([nome, sobrenome]);
+
+    window.localStorage.setItem("dados", JSON.stringify(lista));
   }
 }

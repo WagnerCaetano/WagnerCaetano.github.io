@@ -1,6 +1,6 @@
 function loadTimer() {
   var countDownDate = new Date();
-  countDownDate.setSeconds(new Date().getSeconds() + 2);
+  countDownDate.setSeconds(new Date().getSeconds() + 6);
   countDownDate.getTime();
 
   var x = setInterval(function () {
@@ -24,23 +24,22 @@ function loadTimer() {
 
 loadTimer();
 
-async function seeResultsButton() {
+function seeResultsButton() {
   sorteado = null;
   dados = JSON.parse(window.localStorage.getItem("dados"));
+  sorteado = JSON.parse(window.localStorage.getItem("sorteado"));
+  sorteadoNovo = null;
   if (dados) {
-    sorteado = dados.sorteado;
-  } else {
-    response = null;
-    await fetch("https://sheets.googleapis.com/v4/spreadsheets/19tjUJpsWA-96kz8JcIWEMjk_DXGCrnGP79HkEyNbJOM/values/A1:Z10000001?key=AIzaSyAOVBIC4dpt492p3tEJhfxXb6dKRNf8vpk")
-      .then((response) => response.json())
-      .then((data) => {
-        response = data;
-      });
-    sorteado = response["values"][Math.floor(Math.random() * (response["values"].length - 1)) + 1];
-    window.localStorage.setItem("dados", JSON.stringify({ sorteado }));
+    sorteadoNovo = dados[Math.floor(Math.random() * dados.length - 1) + 1];
+    window.localStorage.setItem("sorteado", JSON.stringify({ sorteado }));
   }
 
-  document.querySelector("#result-sorteio").innerHTML = "O resultado do sorteado foi: " + sorteado[0] + " " + sorteado[1];
+  if (sorteado) {
+    sorteado = sorteado.sorteado;
+  } else {
+    sorteado = sorteadoNovo;
+  }
+  document.querySelector("#result-sorteio").innerHTML = sorteado ? "O resultado do sorteado foi: " + sorteado[0] + " " + sorteado[1] : "AINDA SEM PARTICIPANTES";
   var myModal = new bootstrap.Modal(document.getElementById("myModal"));
   myModal.show();
 }
