@@ -5,7 +5,7 @@ async function sendData() {
     response = null;
 
     dados = JSON.parse(window.localStorage.getItem("dados"));
-    lista = dados && dados.values ? dados.values : [];
+    lista = dados && dados ? dados : [];
     lista.push([nome, sobrenome]);
 
     window.localStorage.setItem("dados", JSON.stringify(lista));
