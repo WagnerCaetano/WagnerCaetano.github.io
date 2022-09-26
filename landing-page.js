@@ -31,7 +31,7 @@ function seeResultsButton() {
   sorteadoNovo = null;
   if (dados) {
     sorteadoNovo = dados[Math.floor(Math.random() * dados.length - 1) + 1];
-    window.localStorage.setItem("sorteado", JSON.stringify({ sorteado }));
+    window.localStorage.setItem("sorteado", JSON.stringify({ sorteadoNovo }));
   }
 
   if (sorteado) {
